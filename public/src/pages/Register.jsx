@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { Link , useNavigate} from 'react-router-dom'
 import {ToastContainer , toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
-import {Logo} from "../"
 import axios from "axios"
 import { registerRoute } from '../utils/APIroutes'
+import backgroundImage from '../assets/background.jpg'
 
   
 
@@ -86,10 +86,17 @@ function Register() {
 
   return (
     <>
+    <Header>
+      <div className="brand">
+        <h1>
+          slacky
+        </h1>
+      </div>
+    </Header>
         <FormContainer>
             <form onSubmit={(event) =>handleSubmit(event)}>
-                <div className="brand">
-                    <h1>Slacky</h1>
+                <div className="formTitle">
+                    <h1>Cadastre-se</h1>
                 </div>
                 <input type="text" placeholder='Usuário' name='username' onChange={e=>handleChange(e)} />
                 <input type="email" placeholder='E-mail' name='email' onChange={e=>handleChange(e)} />
@@ -104,6 +111,24 @@ function Register() {
   )
 }
 
+
+const Header =  styled.header`
+  width: 100vw;
+  height: 7vh;
+  background-color: #20203d;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  .brand{
+    h1{
+      color: white;
+      text-transform: uppercase; 
+      cursor: pointer;
+  }
+
+}
+`
+
 const FormContainer = styled.div`
     height: 100vh;
     width: 100vw;
@@ -112,8 +137,13 @@ const FormContainer = styled.div`
     justify-content: center;
     gap: 1rem;
     align-items: center;
-    background-color: #131324;
-    .brand{
+    background-image: url(${backgroundImage}); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 2rem; 
+    .formTitle{
         display:  flex;
         align-items:  center;
         gap: 1rem;
@@ -141,25 +171,29 @@ const FormContainer = styled.div`
         background-color: #00000076;
         border-radius: 2rem;
         padding: 3rem 5rem;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
         input{
             background-color: transparent;
             padding: 1rem;
             color: white;
-            border: 0.1rem solid #4e0eff;
+            border: 0.2rem solid #20203d;
             border-radius: 0.4rem;
             width: 100%;
             font-size: 1rem;
             &:focus {
-                border: 0.1rem solid #997af0;
+                border: 0.2rem solid #997af0;
                 outline: none;
             }
         }
         span{
             color: white;
             a{
-                color: #4e0eff;
+                color: #997af0;
                 text-decoration: none;
                 font-weight: bold;
+            }
+            a:hover{
+                color: #20203d
             }
         }
         button{
@@ -174,7 +208,7 @@ const FormContainer = styled.div`
             text-transform: uppercase;
             transition: 0.3s ease-in-out;
             &:hover{
-                background-color: #4e0eff;
+                background-color: #20203d;
 
             }
         }
