@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import {ToastContainer , toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
+import { Link , useNavigate} from 'react-router-dom'
+
 
 
 function Login() {
@@ -57,6 +59,7 @@ function Login() {
         <input type='text' placeholder='Nome de usuário' name='username' onChange={e => handleChange(e)} />
         <input type='password' placeholder='Senha' name='password' onChange={e => handleChange(e)} />
         <button type='submit'>Entrar</button>
+        <span>Não possui uma conta ? <Link to='/register'>Cadastre-se</Link></span>
       </form>
     </FormContainer>
     </>
@@ -89,7 +92,9 @@ flex-direction: column;
 justify-content: center;
 gap: 1rem;
 align-items: center;
-background-color: black;
+background-color: #0b0b0f;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+padding: 2rem; 
 form{
   display: flex;
   flex-direction: column;
@@ -97,6 +102,7 @@ form{
   background-color: #131324;
   border-radius: 2rem;
   padding: 3rem 5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   input{
       background-color: transparent;
       padding: 1rem;
