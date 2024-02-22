@@ -1,12 +1,16 @@
 import React,  { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-
+import { Link , useNavigate} from 'react-router-dom'
+import {ToastContainer , toast } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
+import {Logo} from "../"
+import axios from "axios"
+import { registerRoute } from '../utils/APIroutes'
 
   
 
 function Register() {
-
+    const navigate = useNavigate();
     const [values , setValues] = useState({
         username:"", 
         email:"" ,
@@ -15,13 +19,64 @@ function Register() {
 
     })
 
-    const handleSubmit = (event)=>{
-        event.preventDefault()
-        alert("form")
+    const toastOptions = {
+        draggable: true , 
+        pauseOnHover: true , 
+        autoClose: 3000, 
+        position: "bottom-right",
+        theme: "dark"
+
     }
+    const handleSubmit = async (event)=>{
+        event.preventDefault()
+        if(handleValidation()){
+            console.log("in validation" , registerRoute)
+            const {
+                password ,
+                username ,
+                email
+            } = values;
+             
+            const {data} = await axios.post(registerRoute, {
+                username, 
+                email,
+                password
+            });
+            if(data.status===false){
+
+                toast.error(data.msg , toastOptions)
+            }
+            if(data.status===true) {
+                localStorage.setItem('chat-app-user' , JSON.stringify(data.user))
+                navigate("/");
+            }
+            
+        };
+    }
+
+    
+    
 
     const handleValidation = () =>{
         const {username , password , confirmPassword , email} = values;
+        if(password !== confirmPassword) {
+            toast.error("A confirmação de senha e a senha devem ser iguais.",
+            toastOptions    
+        );
+            return false;
+        }else if (username.length< 3){
+            toast.error("Nome de usuário deve ser maior do que 3 caracteres.", toastOptions);
+            return false;
+        }else if (password.length < 6){
+            toast.error("Sua senha tem que conter pelo menos 6 caracteres" , toastOptions);
+            return false;
+        } else if (email ===""){
+            toast.error("Preencha todos os campos.", toastOptions);
+            return false;
+        }else{
+            toast.success("Usuário criado com sucesso!" , toastOptions);
+            return true;
+        }
         
     }
 
@@ -34,7 +89,6 @@ function Register() {
         <FormContainer>
             <form onSubmit={(event) =>handleSubmit(event)}>
                 <div className="brand">
-                    <img src='' alt="Logo" />
                     <h1>Slacky</h1>
                 </div>
                 <input type="text" placeholder='Usuário' name='username' onChange={e=>handleChange(e)} />
@@ -42,9 +96,10 @@ function Register() {
                 <input type="password" placeholder='Senha' name='password' onChange={e=>handleChange(e)} />
                 <input type="password" placeholder='Confirme a senha' name='confirmPassword' onChange={e=>handleChange(e)} />
                 <button type='submit'>Criar usuário</button>
-                <span>Já possui uma conta ? <Link to='/login'>Login</Link></span>
+                <span>Já possui uma conta ? <Link to='/login'>Entrar</Link></span>
             </form>
         </FormContainer>
+        <ToastContainer/>
     </>
   )
 }
@@ -68,8 +123,16 @@ const FormContainer = styled.div`
         }
         h1{
             color: white;
-            text-transform: uppercase;
+            text-transform: uppercase; 
+            cursor: pointer;
+            
         }
+        h1:hover{
+        transform: scale(1.1);
+        background-position: -60px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+        }
+
     }
     form{
         display: flex;
@@ -122,4 +185,4 @@ const FormContainer = styled.div`
 
 `;
 
-export default Register
+export default Register;
