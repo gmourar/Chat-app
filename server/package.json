@@ -11,11 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "feather-icons": "^4.29.1",
     "mongoose": "^8.0.3",
+    "native-base": "^3.4.28",
     "nodemon": "^3.0.2",
+    "react-bootstrap": "^2.10.1",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-svg": "^12.1.1",
+    "react-native-web": "^0.17.1",
     "socket.io": "^4.7.3"
   }
 }

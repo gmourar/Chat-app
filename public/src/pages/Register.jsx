@@ -7,7 +7,6 @@ import axios from "axios"
 import { registerRoute } from '../utils/APIroutes'
 import backgroundImage from '../assets/background.jpg'
 
-  
 
 function Register() {
     const navigate = useNavigate();
@@ -48,14 +47,15 @@ function Register() {
             }
             if(data.status===true) {
                 localStorage.setItem('chat-app-user' , JSON.stringify(data.user))
-                navigate("/");
+                navigate("/login");
             }
             
         };
     }
 
-    
-    
+    const loginPage = () =>{
+        navigate("/login");
+    }
 
     const handleValidation = () =>{
         const {username , password , confirmPassword , email} = values;
@@ -88,7 +88,7 @@ function Register() {
     <>
     <Header>
       <div className="brand">
-        <h1>
+        <h1 onClick={loginPage}>
           slacky
         </h1>
       </div>
