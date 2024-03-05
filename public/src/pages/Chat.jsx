@@ -7,10 +7,9 @@ import "react-toastify/dist/ReactToastify.css"
 import axios from "axios"
 import { registerRoute } from '../utils/APIroutes'
 import backgroundImage from '../assets/background.jpg'
-import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Box, Center, NativeBaseProvider , View , HStack, ScrollView, FlatList , Text , Avatar, VStack} from 'native-base'
+import {Box, Center, NativeBaseProvider , View , HStack, ScrollView, FlatList , Text , Avatar, VStack, Button} from 'native-base'
 import { FaBars } from "react-icons/fa";
 
 function Chat() {
@@ -139,16 +138,17 @@ const DATA = [
       </View>
     </View>
       <View display={'flex'} justifyContent={'flex-start'} position={'absolute'} margin={'1%'}>
-        <Button variant="outline-secondary" onClick={handleShow}>
-        <FaBars />
+        <Button onPress={handleShow} borderWidth={1} borderColor={'gray.400'} color={'#20203d'} backgroundColor={'#20203d'}>
+        <FaBars color='gray' />
           </Button>
           <Offcanvas show={show} onHide={handleClose}>
             <Offcanvas.Header closeButton>
               <Offcanvas.Title>Slacky</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              Some text as placeholder. In real life you can have the elements you
-              have chosen. Like, text, images, lists, etc.
+                <Button >
+                  Sair 
+                </Button>
             </Offcanvas.Body>
           </Offcanvas>
       </View>
