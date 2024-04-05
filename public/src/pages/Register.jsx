@@ -10,6 +10,7 @@ import backgroundImage from '../assets/background.jpg'
 
 function Register() {
     const navigate = useNavigate();
+    
     const [values , setValues] = useState({
         username:"", 
         email:"" ,
@@ -17,6 +18,11 @@ function Register() {
         confirmPassword:"" 
 
     })
+
+    
+
+
+    
 
     const toastOptions = {
         draggable: true , 
@@ -41,6 +47,7 @@ function Register() {
                 email,
                 password
             });
+            
             if(data.status===false){
 
                 toast.error(data.msg , toastOptions)
@@ -54,8 +61,11 @@ function Register() {
     }
 
     const loginPage = () =>{
-        navigate("/login");
+        navigate("/login" ,  {
+
+        }) ;
     }
+    
 
     const handleValidation = () =>{
         const {username , password , confirmPassword , email} = values;
@@ -75,6 +85,7 @@ function Register() {
             return false;
         }else{
             toast.success("Usuário criado com sucesso!" , toastOptions);
+            navigate('/login')
             return true;
         }
         
@@ -83,6 +94,8 @@ function Register() {
     const handleChange = (event) =>{
         setValues({...values , [event.target.name]:event.target.value})
     }
+
+   
 
   return (
     <>

@@ -9,12 +9,13 @@ import loginbg from '../assets/loginbg.jpg'
 
 function Login() {
   const navigate = useNavigate(); 
-
+  const [name , setName ] = useState('')
   const [values, setValues] = useState({
     username: "",
     password: ""
   });
-
+  
+  
   const toastOptions = {
     draggable: true,
     pauseOnHover: true,
@@ -22,8 +23,9 @@ function Login() {
     position: "bottom-right",
     theme: "dark"
   };
-
+  
   const handleSubmit = async (event) => {
+   
     event.preventDefault();
     const { username, password } = values;
     if (handleValidation()) {
@@ -35,6 +37,7 @@ function Login() {
       if (data.status === true) {
         localStorage.setItem('chat-app-user', JSON.stringify(data.user));
         navigate("/");
+        
       }
     }
   }
@@ -54,7 +57,7 @@ function Login() {
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
-    
+    setName(values.username) 
   }
 
 
@@ -68,7 +71,6 @@ function Login() {
       </Header>
       
         <FormContainer>
-          
           <form onSubmit={(event) => handleSubmit(event)}>
             <div className="formTitle">
               <h1>Login</h1>
@@ -79,7 +81,6 @@ function Login() {
             <span>Não possui uma conta ? <Link to='/register'>Cadastre-se</Link></span>
           </form>
         </FormContainer>
-        
       <ToastContainer/>
     </>
   );
